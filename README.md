@@ -11,18 +11,18 @@ Please refer to this link:
 
 The local nodeos is supposed to listen at `http://localhost:8877`
 
-* Create wallet if not yet
+### Create wallet if not yet
 
 `cleos wallet create`
 
 Remember to store the output password for later unlocking.
 By default, wallet daemon is listenning at `http://localhost:6666`
 
-* Unlock the wallet if currently locked
+### Unlock the wallet if currently locked
 
 `cleos --wallet-url http://localhost:6666 wallet unlock`
 
-* Import private key
+### Import private key
 
 It's needed to import private key of the account used to deploy contract.
 Right here, we can utilize the created account on the remote testnet because
@@ -36,20 +36,20 @@ this account is funded with enough RAM.
 
 `cleos --wallet-url http://localhost:6666 --url http://localhost:8877 wallet import 5JtUScZK2XEp3g9gh7F8bwtPTRAkASmNrrftmx4AxDKD5K4zDnr`
 
-* Create contract files if not available
+### Create contract files if not available
 
 If not available, it's possible to create contract skeleton by using the following cmd:
 
 `eosiocpp -n ${contract_name}`
 
-* Compile and build contract
+### Compile and build contract
 
 ```
 eosiocpp -o ${contract_name}.wast ${contract_name}.cpp
 eosiocpp -g ${contract_name}.abi ${contract_name}.hpp
 ```
 
-* Deploy contract
+### Deploy contract
 
 Do not stay inside the contract folder as the it will never work.
 Right here, we use the account `useraaaaaaaa` for deployment.
