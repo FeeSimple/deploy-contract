@@ -77,6 +77,8 @@ warning: transaction executed locally, but may not be confirmed by the network y
 
 ## Contract interaction
 
+### Invoke contract method (via the account used in contract deployment)
+
 **Command:**
 
 `cleos --wallet-url http://localhost:6666 --url http://localhost:8877 push action ${account_name} ${contract_method} '[${argument_list}]' -p ${account_name}@active`
@@ -90,4 +92,120 @@ executed transaction: 1c9d5d983de01f57a5afdede69d293fd86a9c59139cc49ca7d1de0ab6b
 #  useraaaaaaaa <= useraaaaaaaa::hi             {"user":"trung"}
 >> Hello Hello, trung
 warning: transaction executed locally, but may not be confirmed by the network yet
+```
+
+### Query contract code (via the account used in contract deployment)
+
+**Command:**
+
+`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get code ${account_name}`
+
+**Example:**
+
+```
+cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get code useraaaaaaaa
+
+code hash: f1c645067bde280a6407a986d69b94ece3720891a403fefe3f00b940ffd1ace0
+```
+
+## Account interaction
+
+### Get account details
+
+**Command:**
+
+`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get account ${account_name}`
+
+**Example:**
+
+```
+cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get account useraaaaaaaa
+
+privileged: false
+permissions:
+     owner     1:    1 EOS69X3383RzBZj41k73CSjUNXM5MYGpnDxyPnWUKPEtYQmTBWz4D
+        active     1:    1 EOS69X3383RzBZj41k73CSjUNXM5MYGpnDxyPnWUKPEtYQmTBWz4D
+memory:
+     quota:     645.7 Mb     used:     33.29 Kb   
+
+net bandwidth: (averaged over 3 days)
+     staked:  291582899.8560 SYS           (total stake delegated from account to self)
+     delegated:       0.0000 SYS           (total staked delegated to account from others)
+     used:              3.66 Kb   
+     available:        96.12 Tb   
+     limit:            96.12 Tb   
+
+cpu bandwidth: (averaged over 3 days)
+     staked:  291582899.8560 SYS           (total stake delegated from account to self)
+     delegated:       0.0000 SYS           (total staked delegated to account from others)
+     used:             13.65 ms   
+     available:         2800 hr   
+     limit:             2800 hr   
+
+proxy:     producer111a
+```
+
+### Check account balance
+
+**Command:**
+
+`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get currency balance eosio.token ${account_name}`
+
+**Example:**
+
+```
+cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get currency balance eosio.token useraaaaaaaa
+
+10.0000 SYS
+```
+
+### Create new account
+
+**Command:**
+
+`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 system newaccount ${creator_account} ${new_account_name} ${pubkey} --stake-net "${some_amount} SYS" --stake-cpu "${some_amount} SYS" --buy-ram "${some_amount} SYS"`
+
+**Note on new account name:**
+
+`must be exactly 12 characters and only contains the following symbol .12345abcdefghijklmnopqrstuvwxyz`
+
+**Example:**
+
+```
+cleos --wallet-url http://localhost:6666 --url http://localhost:8877 system newaccount useraaaaaaaa trung1234512 EOS7CJJwBTeUyNBLYF8TWZWenFTXtTp1o1RjgjnHV9wGstiPitFdT --stake-net "2 SYS" --stake-cpu "2 SYS" --buy-ram "1 SYS"
+
+1529285ms thread-0   main.cpp:426                  create_action        ] result: {"binargs":"608c31c6187315d6204221430436f5cd10270000000000000453595300000000"} arg: {"code":"eosio","action":"buyram","args":{"payer":"useraaaaaaaa","receiver":"trung1234512","quant":"1.0000 SYS"}}
+1529287ms thread-0   main.cpp:426                  create_action        ] result: {"binargs":"608c31c6187315d6204221430436f5cd204e0000000000000453595300000000204e000000000000045359530000000000"} arg: {"code":"eosio","action":"delegatebw","args":{"from":"useraaaaaaaa","receiver":"trung1234512","stake_net_quantity":"2.0000 SYS","stake_cpu_quantity":"2.0000 SYS","transfer":false}}
+executed transaction: 65aae773de68c389418304e864bd692b6efe6252c00a134592eabf730902ba3d  344 bytes  8505 us
+#         eosio <= eosio::newaccount            {"creator":"useraaaaaaaa","name":"trung1234512","owner":{"threshold":1,"keys":[{"key":"EOS7CJJwBTeUy...
+#         eosio <= eosio::buyram                {"payer":"useraaaaaaaa","receiver":"trung1234512","quant":"1.0000 SYS"}
+#   eosio.token <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.ram","quantity":"0.9950 SYS","memo":"buy ram"}
+#  useraaaaaaaa <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.ram","quantity":"0.9950 SYS","memo":"buy ram"}
+#     eosio.ram <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.ram","quantity":"0.9950 SYS","memo":"buy ram"}
+#   eosio.token <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.ramfee","quantity":"0.0050 SYS","memo":"ram fee"}
+#  useraaaaaaaa <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.ramfee","quantity":"0.0050 SYS","memo":"ram fee"}
+#  eosio.ramfee <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.ramfee","quantity":"0.0050 SYS","memo":"ram fee"}
+#         eosio <= eosio::delegatebw            {"from":"useraaaaaaaa","receiver":"trung1234512","stake_net_quantity":"2.0000 SYS","stake_cpu_quanti...
+#  producer111a <= eosio::delegatebw            {"from":"useraaaaaaaa","receiver":"trung1234512","stake_net_quantity":"2.0000 SYS","stake_cpu_quanti...
+#   eosio.token <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.stake","quantity":"4.0000 SYS","memo":"stake bandwidth"}
+#  useraaaaaaaa <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.stake","quantity":"4.0000 SYS","memo":"stake bandwidth"}
+#   eosio.stake <= eosio.token::transfer        {"from":"useraaaaaaaa","to":"eosio.stake","quantity":"4.0000 SYS","memo":"stake bandwidth"}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+```
+
+**Note:**
+
+```
+Error 3010001: Invalid name
+Name should be less than 13 characters and only contains the following symbol .12345abcdefghijklmnopqrstuvwxyz
+Error Details:
+Name not properly normalized (name: trung6789123, normalized: trung....123)
+```
+
+```
+https://github.com/EOSIO/eos/issues/3480
+Since you get this error message, you certainly have system contract installed.
+System contract allows to create only one short (<12 characters) account name per 24 hours (one that got the highest bid).
+If you want to just create an account (without doing bidding) - the name should be exactly 12 characters long.
 ```
