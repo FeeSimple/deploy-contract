@@ -75,6 +75,26 @@ warning: transaction executed locally, but may not be confirmed by the network y
 
 ```
 
+**Error note:**
+
+```
+Error 3040005: Expired Transaction
+Please increase the expiration time of your transaction!
+Error Details:
+expired transaction 1ef65a2816337fca606a243bf89c2f898e28467b0480f6021b395ddfe8f67dbd
+```
+
+** Root cause:**
+
+The running local nodeos is incurring high latency.
+Either wait until the latency value is decreased or restart the local nodeos
+
+```
+0|script_c | 3229491ms thread-0   producer_plugin.cpp:290       on_incoming_block    ] Received block 5bc67b62c9008b98... #97000 @ 2018-06-19T17:53:00.000 signed by producer111a [trxs: 0, lib: 96867, conf: 108, latency: 75649491 ms]
+0|script_c | 3240221ms thread-0   producer_plugin.cpp:290       on_incoming_block    ] Received block 510669cfd7c66f58... #98000 @ 2018-06-19T18:01:20.000 signed by producer111d [trxs: 0, lib: 97863, conf: 0, latency: 75160221 ms]
+0|script_c | 3250914ms thread-0   producer_plugin.cpp:290       on_incoming_block    ] Received block c1523a5a97110731... #99000 @ 2018-06-19T18:09:40.000 signed by producer111g [trxs: 0, lib: 98859, conf: 0, latency: 74670914 ms]
+```
+
 ## Contract interaction
 
 ### Invoke contract method (via the account used in contract deployment)
