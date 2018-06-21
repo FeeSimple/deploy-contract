@@ -58,12 +58,15 @@ Right here, we use the account `useraaaaaaaa` for deployment.
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 set contract ${account_name} ${path_to_contract_folder}`
+`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 set contract ${account_name} ${abs_path_to_contract_folder} ${abs_path_to_wast_file} ${abs_path_to_abi_file}`
+
+**Note:**
+Must use absolute path. Otherwise, the deployment cmd will be failed
 
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 set contract useraaaaaaaa hello
+cleos --wallet-url http://localhost:6666 --url http://localhost:8877 set contract useraaaaaaaa ~/Work/reference/dyver/eos-todo/contract/ ~/Work/reference/dyver/eos-todo/contract/hello.wast ~/Work/reference/dyver/eos-todo/contract/hello.abi
 
 Reading WAST/WASM from hello/hello.wasm...
 Using already assembled WASM...
