@@ -9,7 +9,7 @@ Please refer to this link:
 
 ## Contract deployment steps
 
-The local nodeos is supposed to listen at `http://localhost:8877`
+The local nodeos is supposed to listen at `http://138.197.194.220:8877`
 
 ### Create wallet if not yet
 
@@ -36,7 +36,7 @@ this account is funded with enough RAM.
 "public-key": "EOS69X3383RzBZj41k73CSjUNXM5MYGpnDxyPnWUKPEtYQmTBWz4D"
 ```
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 wallet import 5JtUScZK2XEp3g9gh7F8bwtPTRAkASmNrrftmx4AxDKD5K4zDnr`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 wallet import 5JtUScZK2XEp3g9gh7F8bwtPTRAkASmNrrftmx4AxDKD5K4zDnr`
 
 ### Create contract files if not available
 
@@ -58,7 +58,7 @@ Right here, we use the account `useraaaaaaaa` for deployment.
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 set contract ${account_name} ${abs_path_to_contract_folder} ${abs_path_to_wast_file} ${abs_path_to_abi_file}`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 set contract ${account_name} ${abs_path_to_contract_folder} ${abs_path_to_wast_file} ${abs_path_to_abi_file}`
 
 **Note:**
 Must use absolute path. Otherwise, the deployment cmd will be failed
@@ -66,7 +66,7 @@ Must use absolute path. Otherwise, the deployment cmd will be failed
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 set contract useraaaaaaaa ~/Work/reference/dyver/eos-todo/contract/ ~/Work/reference/dyver/eos-todo/contract/hello.wast ~/Work/reference/dyver/eos-todo/contract/hello.abi
+cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 set contract useraaaaaaaa ~/Work/reference/dyver/eos-todo/contract/ ~/Work/reference/dyver/eos-todo/contract/hello.wast ~/Work/reference/dyver/eos-todo/contract/hello.abi
 
 Reading WAST/WASM from hello/hello.wasm...
 Using already assembled WASM...
@@ -104,12 +104,12 @@ Either wait until the latency value is decreased or restart the local nodeos
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 push action ${account_name} ${contract_method} '[${argument_list}]' -p ${account_name}@active`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 push action ${account_name} ${contract_method} '[${argument_list}]' -p ${account_name}@active`
 
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 push action useraaaaaaaa hi '["trung"]' -p useraaaaaaaa@active
+cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 push action useraaaaaaaa hi '["trung"]' -p useraaaaaaaa@active
 
 executed transaction: 1c9d5d983de01f57a5afdede69d293fd86a9c59139cc49ca7d1de0ab6b31ee7a  104 bytes  904 us
 #  useraaaaaaaa <= useraaaaaaaa::hi             {"user":"trung"}
@@ -121,12 +121,12 @@ warning: transaction executed locally, but may not be confirmed by the network y
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get code ${account_name}`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get code ${account_name}`
 
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get code useraaaaaaaa
+cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get code useraaaaaaaa
 
 code hash: f1c645067bde280a6407a986d69b94ece3720891a403fefe3f00b940ffd1ace0
 ```
@@ -137,12 +137,12 @@ code hash: f1c645067bde280a6407a986d69b94ece3720891a403fefe3f00b940ffd1ace0
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get account ${account_name}`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get account ${account_name}`
 
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get account useraaaaaaaa
+cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get account useraaaaaaaa
 
 privileged: false
 permissions:
@@ -172,12 +172,12 @@ proxy:     producer111a
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get currency balance eosio.token ${account_name}`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get currency balance eosio.token ${account_name}`
 
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get currency balance eosio.token useraaaaaaaa
+cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get currency balance eosio.token useraaaaaaaa
 
 10.0000 SYS
 ```
@@ -186,7 +186,7 @@ cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get currenc
 
 **Command:**
 
-`cleos --wallet-url http://localhost:6666 --url http://localhost:8877 system newaccount ${creator_account} ${new_account_name} ${pubkey} --stake-net "${some_amount} SYS" --stake-cpu "${some_amount} SYS" --buy-ram "${some_amount} SYS"`
+`cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 system newaccount ${creator_account} ${new_account_name} ${pubkey} --stake-net "${some_amount} SYS" --stake-cpu "${some_amount} SYS" --buy-ram "${some_amount} SYS"`
 
 **Note on new account name:**
 
@@ -195,7 +195,7 @@ cleos --wallet-url http://localhost:6666 --url http://localhost:8877 get currenc
 **Example:**
 
 ```
-cleos --wallet-url http://localhost:6666 --url http://localhost:8877 system newaccount useraaaaaaaa trung1234512 EOS7CJJwBTeUyNBLYF8TWZWenFTXtTp1o1RjgjnHV9wGstiPitFdT --stake-net "2 SYS" --stake-cpu "2 SYS" --buy-ram "1 SYS"
+cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 system newaccount useraaaaaaaa trung1234512 EOS7CJJwBTeUyNBLYF8TWZWenFTXtTp1o1RjgjnHV9wGstiPitFdT --stake-net "2 SYS" --stake-cpu "2 SYS" --buy-ram "1 SYS"
 
 1529285ms thread-0   main.cpp:426                  create_action        ] result: {"binargs":"608c31c6187315d6204221430436f5cd10270000000000000453595300000000"} arg: {"code":"eosio","action":"buyram","args":{"payer":"useraaaaaaaa","receiver":"trung1234512","quant":"1.0000 SYS"}}
 1529287ms thread-0   main.cpp:426                  create_action        ] result: {"binargs":"608c31c6187315d6204221430436f5cd204e0000000000000453595300000000204e000000000000045359530000000000"} arg: {"code":"eosio","action":"delegatebw","args":{"from":"useraaaaaaaa","receiver":"trung1234512","stake_net_quantity":"2.0000 SYS","stake_cpu_quantity":"2.0000 SYS","transfer":false}}
