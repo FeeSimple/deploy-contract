@@ -11,6 +11,13 @@ Please refer to this link:
 
 The local nodeos is supposed to listen at `http://138.197.194.220:8877`
 
+### Start wallet manager "keosd"
+
+```
+// Without the opt "--http-validate-host=false", it will never work in current version of EOS
+keosd --http-server-address=127.0.0.1:6666 --http-validate-host=false &
+```
+
 ### Create wallet if not yet
 
 `cleos wallet create`
