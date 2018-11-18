@@ -1,4 +1,4 @@
-# Deploy smart contract to the remote testnet via the local nodeos
+# Deploy a smart contract to the remote testnet via local nodeos
 
 ## Start the local nodeos
 
