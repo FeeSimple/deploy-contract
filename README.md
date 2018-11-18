@@ -26,7 +26,7 @@ keosd --http-server-address=127.0.0.1:6666 --http-validate-host=false &
 Remember to store the output password for unlocking later.
 By default, wallet daemon is listenning at `http://localhost:6666`
 
-### Unlock the wallet if it is currently locked
+### Unlock wallet if currently locked
 
 `cleos --wallet-url http://localhost:6666 wallet unlock`
 
