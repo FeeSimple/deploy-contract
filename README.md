@@ -2,30 +2,31 @@
 
 ## Start the local nodeos
 
-It is needed to start a local nodeos that is connected to the remote testnet.
+It is required to start a local nodeos that is connected to the remote testnet.
+
 Please refer to this link:
 
 (https://github.com/FeeSimple/eos-tracker/tree/master/nodeos/client_node_connect_to_testnet)
 
 ## Contract deployment steps
 
-The local nodeos is supposed to listen at `http://138.197.194.220:8877`
+The local nodeos should listen at `http://138.197.194.220:8877`
 
 ### Start wallet manager "keosd"
 
 ```
-// Without the opt "--http-validate-host=false", it will never work in current version of EOS
+// Without the opt "--http-validate-host=false", it will never work in the current version of EOS
 keosd --http-server-address=127.0.0.1:6666 --http-validate-host=false &
 ```
 
-### Create wallet if not yet
+### Create wallet if not yet created
 
 `cleos wallet create`
 
-Remember to store the output password for later unlocking.
+Remember to store the output password for unlocking later.
 By default, wallet daemon is listenning at `http://localhost:6666`
 
-### Unlock the wallet if currently locked
+### Unlock the wallet if it is currently locked
 
 `cleos --wallet-url http://localhost:6666 wallet unlock`
 
@@ -33,9 +34,8 @@ By default, wallet daemon is listenning at `http://localhost:6666`
 
 ### Import private key
 
-It's needed to import private key of the account (into the local wallet) used to deploy contract.
-Right here, we can utilize the created account on the remote testnet because
-this account is funded with enough RAM.
+It is required to import the private key of the account (into the local wallet) used to deploy contract.
+We can utilize the created account on the remote testnet because this account is funded with enough RAM.
 
 ```
 "name": "useraaaaaaaa",
@@ -47,7 +47,7 @@ this account is funded with enough RAM.
 
 ### Create contract files if not available
 
-If not available, it's possible to create contract skeleton by using the following cmd:
+If not available, it is possible to create a contract skeleton by using the following cmd:
 
 `eosiocpp -n ${contract_name}`
 
@@ -60,15 +60,14 @@ eosiocpp -g ${contract_name}.abi ${contract_name}.cpp
 
 ### Deploy contract
 
-Do not pass the abi file or wast file as arguments as the it will never work.
-Right here, we use the account `useraaaaaaaa` for deployment.
+Do not pass the abi file or wast file as arguments as this  will not work. We use the account `useraaaaaaaa` for deployment.
 
 **Command:**
 
 `cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 set contract ${account_name} ${abs_path_to_contract_folder} ${abs_path_to_wast_file} ${abs_path_to_abi_file}`
 
 **Note:**
-Must use absolute path. Otherwise, the deployment cmd will be failed
+You must use an absolute path. Otherwise, the deployment cmd will fail.
 
 **Example:**
 
@@ -97,7 +96,7 @@ expired transaction 1ef65a2816337fca606a243bf89c2f898e28467b0480f6021b395ddfe8f6
 ** Root cause:**
 
 The running local nodeos is incurring high latency.
-Either wait until the latency value is decreased or restart the local nodeos
+Either wait until the latency value is decreased or restart the local nodeos.
 
 ```
 0|script_c | 3229491ms thread-0   producer_plugin.cpp:290       on_incoming_block    ] Received block 5bc67b62c9008b98... #97000 @ 2018-06-19T17:53:00.000 signed by producer111a [trxs: 0, lib: 96867, conf: 108, latency: 75649491 ms]
@@ -189,7 +188,7 @@ cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get c
 10.0000 SYS
 ```
 
-### Create new account
+### Create a new account
 
 **Command:**
 
@@ -197,7 +196,7 @@ cleos --wallet-url http://localhost:6666 --url http://138.197.194.220:8877 get c
 
 **Note on new account name:**
 
-`must be exactly 12 characters and only contains the following symbol .12345abcdefghijklmnopqrstuvwxyz`
+`must be exactly 12 characters and only contains the following symbols: .12345abcdefghijklmnopqrstuvwxyz`
 
 **Example:**
 
@@ -228,14 +227,14 @@ warning: transaction executed locally, but may not be confirmed by the network y
 
 ```
 Error 3010001: Invalid name
-Name should be less than 13 characters and only contains the following symbol .12345abcdefghijklmnopqrstuvwxyz
+Name should be less than 13 characters and only contains the following symbols .12345abcdefghijklmnopqrstuvwxyz
 Error Details:
 Name not properly normalized (name: trung6789123, normalized: trung....123)
 ```
 
 ```
 https://github.com/EOSIO/eos/issues/3480
-Since you get this error message, you certainly have system contract installed.
-System contract allows to create only one short (<12 characters) account name per 24 hours (one that got the highest bid).
-If you want to just create an account (without doing bidding) - the name should be exactly 12 characters long.
+Since you get this error message, you have system contract installed.
+System contract allows you to create only one short (<12 characters) account name per 24 hours (highest bid).
+If you want to create an account (without doing bidding) - the name should be exactly 12 characters long.
 ```
